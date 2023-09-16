@@ -1,0 +1,32 @@
+import objects.*
+
+describe "tests cuentaCorriente" {
+
+	test "deposita 500 pesos y extrae 200" {
+		cuentaCorriente.depositar(500)
+		assert.equals(500,cuentaCorriente.saldo())
+		cuentaCorriente.extraer(200)
+		assert.equals(300,cuentaCorriente.saldo()
+		)
+	}
+}
+
+describe "tests cuentaConGastos" {
+
+	test "deposita 5000 pesos y extrae 2000" {
+		cuentaConGastos.depositar(5000)
+		assert.equals(4800,cuentaConGastos.saldo())
+		cuentaConGastos.extraer(2000)
+		assert.equals(2600,cuentaConGastos.saldo())
+	}
+}
+
+describe "tests cuentaCombinada" {
+
+	test "deposita 5000 pesos y extrae 2000" {
+		cuentaCombinada.depositar(5000)
+		assert.equals(2035000,cuentaCombinada.saldo())
+		cuentaCombinada.extraer(2000)
+		assert.equals(2033000,cuentaCombinada.saldo())
+	}
+}

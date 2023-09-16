@@ -1,0 +1,83 @@
+import casa.*
+import cosas.*
+import objects.*
+
+describe "Test de la casa de Pepe y Julian" {
+
+	test "compro 5 cosas" {
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(tiraDeAsado)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		casaDePepeYJulian.comprar(heladera)
+		casaDePepeYJulian.comprar(cama)
+		assert.equals(5,casaDePepeYJulian.cantidadDeCosasCompradas())
+	}
+	test "compro al menos una cosa que es comida"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		casaDePepeYJulian.comprar(heladera)
+		casaDePepeYJulian.comprar(cama)
+		assert.that(casaDePepeYJulian.tieneComida())
+	}
+	test "el la ultima cosa comprada es un electrodomestico o vale mas de 50000"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		casaDePepeYJulian.comprar(cama)
+		assert.that(casaDePepeYJulian.vieneDeEquiparse())
+		casaDePepeYJulian.comprar(heladera)
+		assert.that(casaDePepeYJulian.vieneDeEquiparse())
+	}
+	test "Las suma del precio de las cosas compradas es mayor o igual a 90000"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		casaDePepeYJulian.comprar(heladera)
+		casaDePepeYJulian.comprar(cama)
+		assert.that(casaDePepeYJulian.esDerrochona())
+	}
+	test "la cosa mas cara comprada es la cama"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		casaDePepeYJulian.comprar(heladera)
+		casaDePepeYJulian.comprar(cama)
+		assert.equals(heladera,casaDePepeYJulian.compraMasCara())
+	}
+	test "Los electrodomesticos comprados son la heladera y la plancha"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		casaDePepeYJulian.comprar(heladera)
+		casaDePepeYJulian.comprar(cama)
+		assert.equals([plancha,heladera],casaDePepeYJulian.electrodomesticosComprados())
+	}
+	test "todas las cosas compradas son comida"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(tiraDeAsado)
+		assert.that(casaDePepeYJulian.malaEpoca())
+	}
+	test "falto comprar la heladera y la cama"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(plancha)
+		assert.equals(#{cama,heladera},casaDePepeYJulian.queFaltaComprar([paqueteDeFideos,plancha,cama,heladera]))
+	}
+	test "NO falta comida"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(tiraDeAsado)
+		casaDePepeYJulian.comprar(plancha)
+		assert.notThat(casaDePepeYJulian.faltaComida())
+	}
+	test "usa cuentaCombinada, su gasto es de 84000, le quedan 1946000"{
+		casaDePepeYJulian.cuenta(cuentaCombinada)
+		casaDePepeYJulian.comprar(paqueteDeFideos)
+		casaDePepeYJulian.comprar(tiraDeAsado)
+		casaDePepeYJulian.comprar(cama)
+		assert.equals(1946000,casaDePepeYJulian.dineroDisponible())
+	}
+}
